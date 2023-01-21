@@ -55,6 +55,7 @@ if (app.Environment.IsDevelopment())
         c.OAuthClientId(builder.Configuration["SwaggerAzureAD:ClientId"]);
         c.OAuthUsePkce();
         c.OAuthScopeSeparator(" ");
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "SwaggerAPI v1");
     });
 }
 
