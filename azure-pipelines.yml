@@ -15,7 +15,7 @@ variables:
 steps:
 - task: replacetokens@5
   inputs:
-    rootDirectory: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    rootDirectory: '$(System.DefaultWorkingDirectory)/drop/*.zip'
     targetFiles: 'appsettings.json'
     encoding: 'auto'
     tokenPattern: 'default'
