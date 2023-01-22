@@ -15,6 +15,11 @@ namespace MembersInfoApi.Controllers
     [ApiController]
     public class MembersController : ControllerBase
     {
+        public IConfiguration _configuration;
+        public MembersController(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
         static readonly string[] scopeRequiredByApi = new string[] { "MembersApi.All" };
         private List<Member> membersList = new List<Member>
         {
@@ -33,8 +38,9 @@ namespace MembersInfoApi.Controllers
                 MemberId = "M8888"
             }
         };
-       [HttpGet("[action]/{memberId}")]
-       [Authorize(Roles = "Members.Readonly")]
+        
+        [HttpGet("[action]/{memberId}")]
+        [Authorize(Roles = "Members.Readonly")]
         public IActionResult GetMemberInfo(string memberId)
         {
             HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
@@ -50,6 +56,8 @@ namespace MembersInfoApi.Controllers
                 member.ClientID = claimClientID.FirstOrDefault().Value;
             }
             member.authHeader = authHeader;
+            member.BuildNumber = _configuration["CodeVersion:Num"];
+
             if(member==null)
                 return NotFound();
             return Ok(member);

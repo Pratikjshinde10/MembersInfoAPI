@@ -8,5 +8,6 @@ namespace MembersInfoApi
         public string? Address { get; set; }
         public string? authHeader { get; set; }
         public string? ClientID { get; set; }
+        public string? BuildNumber { get; set; }
     }
 }
